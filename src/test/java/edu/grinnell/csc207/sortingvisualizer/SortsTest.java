@@ -2,6 +2,8 @@ package edu.grinnell.csc207.sortingvisualizer;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
@@ -61,5 +63,23 @@ public class SortsTest {
     @Test
     public void testQuickSort() {
         testSort(Sorts::quickSort);
+    }
+
+    @Test
+    public void testBinarySearch() {
+        int[] arr1 = {1, 4, 6, 7, 9, 10, 12, 34};
+        assertEquals(2, Sorts.binarySearch(6, arr1, 0, 8));
+    }
+
+    @Test
+    public void testBinarySearch2() {
+        int[] arr1 = {1, 4, 6, 7, 9, 10, 12, 34, 56};
+        assertEquals(4, Sorts.binarySearch(9, arr1, 0, 9));
+    }
+
+    @Test
+    public void testBinarySearch3() {
+        int[] arr1 = {1, 4, 6, 7, 9, 10, 12, 34, 56};
+        assertEquals(-1, Sorts.binarySearch(11, arr1, 0, 9));
     }
 }
