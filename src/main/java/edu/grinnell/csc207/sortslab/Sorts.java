@@ -1,5 +1,7 @@
 package edu.grinnell.csc207.sortslab;
 
+import java.util.Arrays;
+
 /**
  * A collection of sorting algorithms over generic arrays.
  */
@@ -122,6 +124,38 @@ public class Sorts {
     }
     
 
+
+    public static <T extends Comparable<? super T>> T[] merge(T[] arr1, T[] arr2) {
+        int i = 0, k = 0;
+
+        int j = 0;
+        T[] arrFinal = Arrays.copyOf(arr1, arr1.length + arr2.length);
+        while (i < arr1.length && k < arr2.length) {
+            if (arr1[i].compareTo(arr2[k]) < 0) {
+                arrFinal[j] = arr1[i];
+                j++;
+                i++;
+            } else {
+                arrFinal[j] = arr1[k];
+                j++;
+                k++;
+            }
+        }
+            while (i < arr1.length) {
+                arrFinal[j] = arr1[i];
+                j++;
+                i++;
+            }
+
+            while (k < arr1.length) {
+                arrFinal[j] = arr1[k];
+                j++;
+                k++;
+            }
+        return arrFinal;
+    }
+
+
     /**
      * Sorts the array according to the merge sort algorithm:
      * <pre>
@@ -131,7 +165,47 @@ public class Sorts {
      * @param arr the array to sort
      */
     public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
-        // TODO: fill me in!
+       
+        if (arr.length > 1) {
+            
+
+        } else {
+            
+        }
+        
+    }
+
+/**
+     * Sorts the array according to the quick sort algorithm:
+     * <pre>
+     * []
+     * </pre>
+     * @param <T>
+     * @param arr
+     */
+    public static <T extends Comparable<? super T>> void quickSort(T[] arr, int lo, int hi) {
+        int med = arr.length - 1;
+
+        int left = 0, right = arr.length - 2;
+
+        while (left != right) {
+            if (arr[left].compareTo(arr[med]) > 0 && arr[right].compareTo(arr[med]) <= 0) {
+                swap(arr, left, right);
+            }
+
+            if (arr[left].compareTo(arr[med]) < 0) {
+                left++;
+            }
+
+            if (arr[right].compareTo(arr[med]) >= 0) {
+                right++;
+            }
+        }
+        if (hi - lo == 0) {
+            quickSort(arr, (lo + left), (left - 1));
+            quickSort(arr, left, hi);
+        }
+
     }
 
     /**
@@ -143,7 +217,28 @@ public class Sorts {
      * @param arr
      */
     public static <T extends Comparable<? super T>> void quickSort(T[] arr) {
-        // TODO: fill me in!
+        int med = arr.length - 1;
+
+        int left = 0, right = arr.length - 2;
+
+        while (left != right) {
+            if (arr[left].compareTo(arr[med]) > 0 && arr[right].compareTo(arr[med]) <= 0) {
+                swap(arr, left, right);
+            }
+
+            if (arr[left].compareTo(arr[med]) < 0) {
+                left++;
+            }
+
+            if (arr[right].compareTo(arr[med]) >= 0) {
+                right++;
+            }
+        }
+        if (arr.length > 1) {
+            quickSort(arr, 0, (left - 1));
+            quickSort(arr, left, arr.length - 1);
+        }
+
     }
 
 
