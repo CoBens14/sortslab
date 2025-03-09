@@ -23,10 +23,13 @@ public class Sorts {
     }
 
     /**
-     * Sorts the array according to the binary search algorithm:
+     * Finds the index of value according to the binary search algorithm:
      *
-     * @param <T> the carrier type of the array
+     * @param value
      * @param arr the array to sort
+     * @param lo the lowest element being considered
+     * @param hi the highest element being considered
+     * @return the index of the value
      */
     public static int binarySearch(int value, int[] arr, int lo, int hi) {
         int ret = lo + (hi - lo) / 2;
@@ -47,7 +50,18 @@ public class Sorts {
         return ret;
     }
 
-    public static <T extends Comparable<? super T>> int binarySearchT(T value, T[] arr, int lo, int hi) {
+    /**
+     * Finds the index of value according to the binary search algorithm:
+     *
+     * @param <T> type of value and array
+     * @param value value searching for
+     * @param arr the array containing value
+     * @param lo the lowest index that needs considered
+     * @param hi the highest index that needs considered
+     * @return index of value
+     */
+    public static <T extends Comparable<? super T>> int binarySearchT(T value, T[] arr,
+            int lo, int hi) {
         int ret = lo + (hi - lo) / 2;
         if (lo > hi) {
             return -1;
@@ -129,6 +143,14 @@ public class Sorts {
         }
     }
 
+    /**
+     * Merges two sorted arrays
+     *
+     * @param <T> the type of arrays being merged
+     * @param arr1 the first sorted array
+     * @param arr2 the second sorted array
+     * @return a sorted array
+     */
     public static <T extends Comparable<? super T>> T[] merge(T[] arr1, T[] arr2) {
         T[] arr3 = Arrays.copyOf(arr1, arr1.length + arr2.length);
         int i = 0, j = 0, k = 0;
@@ -165,7 +187,7 @@ public class Sorts {
      *
      * @param <T> the carrier type of the array
      * @param arr the array to sort
-     * @return
+     * @return the array sorted
      */
     public static <T extends Comparable<? super T>> T[] mergeSortHelper(T[] arr) {
         if (arr.length > 1) {
@@ -189,10 +211,12 @@ public class Sorts {
     public static <T extends Comparable<? super T>> void mergeSort(T[] arr) {
         T[] arrTmp = Arrays.copyOf(arr, arr.length);
         if (arr.length > 1) {
-            arrTmp = Arrays.copyOf(merge(mergeSortHelper(Arrays.copyOfRange(arr, 0, (arr.length / 2))),
-                    mergeSortHelper(Arrays.copyOfRange(arr, arr.length / 2, arr.length))), arr.length);
+            arrTmp = Arrays.copyOf(merge(mergeSortHelper(Arrays.copyOfRange(
+                    arr, 0, (arr.length / 2))),
+                    mergeSortHelper(Arrays.copyOfRange(
+                            arr, arr.length / 2, arr.length))), arr.length);
         }
-        
+
         for (int i = 0; i < arr.length; i++) {
             arr[i] = arrTmp[i];
         }
@@ -205,8 +229,10 @@ public class Sorts {
      * []
      * </pre>
      *
-     * @param <T>
-     * @param arr
+     * @param <T> the type being sorted
+     * @param arr the array being sorted
+     * @param lo the low point in array that is being sorted
+     * @param hi the high point in array being Sorted
      */
     public static <T extends Comparable<? super T>> void quickSort(T[] arr, int lo, int hi) {
         int med = hi;
@@ -240,7 +266,7 @@ public class Sorts {
         }
 
         if (hi - lo > 1) {
-            if (left > 0){
+            if (left > 0) {
                 quickSort(arr, lo, (left - 1));
             }
             quickSort(arr, left, hi);
@@ -280,7 +306,6 @@ public class Sorts {
                 } else if (arr[right].compareTo(arr[med]) >= 0) {
                     right--;
                 }
-                
 
             }
 
@@ -290,28 +315,12 @@ public class Sorts {
         } else {
             left++;
         }
-        
+
         if (arr.length > 1) {
-            if (left > 0){
+            if (left > 0) {
                 quickSort(arr, 0, (left - 1));
             }
             quickSort(arr, left, arr.length - 1);
         }
-
-
     }
-
-    public static void main(String[] args) {
-        Integer[] arr = {3, 7, 9, 1, 2,
-            18, 16, 15, 19, 8,
-            14, 12, 5, 13, 4,
-            6, 0, 17, 11, 10};
-
-        quickSort(arr);
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
-        }
-    }
-
 }
