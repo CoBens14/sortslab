@@ -225,21 +225,24 @@ public class Sorts {
             if (arr[left].compareTo(arr[med]) > 0 && arr[right].compareTo(arr[med]) <= 0) {
                 swap(arr, left, right);
             } else {
-                if (arr[right].compareTo(arr[med]) >= 0) {
-                    right--;
-                }
                 if (arr[left].compareTo(arr[med]) < 0) {
                     left++;
+                } else if (arr[right].compareTo(arr[med]) >= 0) {
+                    right--;
                 }
 
             }
         }
         if (arr[left].compareTo(arr[med]) > 0) {
             swap(arr, med, left);
+        } else {
+            left++;
         }
 
         if (hi - lo > 1) {
-            quickSort(arr, lo, (left - 1));
+            if (left > 0){
+                quickSort(arr, lo, (left - 1));
+            }
             quickSort(arr, left, hi);
         }
 
@@ -272,30 +275,39 @@ public class Sorts {
             if (arr[left].compareTo(arr[med]) > 0 && arr[right].compareTo(arr[med]) <= 0) {
                 swap(arr, left, right);
             } else {
-                if (arr[right].compareTo(arr[med]) >= 0) {
-                    right--;
-                }
                 if (arr[left].compareTo(arr[med]) < 0) {
                     left++;
+                } else if (arr[right].compareTo(arr[med]) >= 0) {
+                    right--;
                 }
+                
 
             }
 
         }
         if (arr[left].compareTo(arr[med]) > 0) {
             swap(arr, med, left);
+        } else {
+            left++;
         }
+        
         if (arr.length > 1) {
-            quickSort(arr, 0, (left - 1));
+            if (left > 0){
+                quickSort(arr, 0, (left - 1));
+            }
             quickSort(arr, left, arr.length - 1);
         }
+
 
     }
 
     public static void main(String[] args) {
-        Integer[] arr = {1, 6, 4, 7, 2, 5};
+        Integer[] arr = {3, 7, 9, 1, 2,
+            18, 16, 15, 19, 8,
+            14, 12, 5, 13, 4,
+            6, 0, 17, 11, 10};
 
-        mergeSort(arr);
+        quickSort(arr);
 
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
